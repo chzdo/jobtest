@@ -6,6 +6,7 @@
   "scripts": {
     "test": "nyc --reporter=html   mocha -r ts-node/register  './test/**/*.ts'",
     "dev": "nodemon  -r dotenv/config app.ts",
+    "build": "node app.ts",
     "migrate": "sequelize-cli db:migrate",
     "undo-migrate": "sequelize-cli db:migrate:undo",
     "seed-generate": "sequelize-cli seed:generate",

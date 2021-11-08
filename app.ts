@@ -6,12 +6,11 @@ import helmet from "helmet";
 import "./utils/movies";
 import { useMorgan } from "./utils/morgan";
 import { router } from "./src/routes/index";
-
 import { logger } from "./utils/winston";
-
 const { PORT } = process.env;
-const app = express();
 
+const app = express();
+console.log("port", PORT);
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
@@ -19,4 +18,4 @@ app.use(useMorgan);
 
 app.use("/", router);
 
-app.listen(PORT || 3000, () => logger.info(`port running for user service at ${PORT}`));
+app.listen(PORT || 3000, () => console.log(`port running for user service at ${PORT}`));

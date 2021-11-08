@@ -15,9 +15,6 @@
     "seed-generate": "sequelize-cli seed:generate",
     "seed": "sequelize-cli db:seed:all"
   },
-  "engines": {
-    "node": "12.16.3"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chzdo/uni_project.git"

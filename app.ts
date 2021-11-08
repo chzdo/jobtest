@@ -23,4 +23,4 @@ app.get("/", function (req, res) {
 
 //app.use("/", router);
 
-app.listen(PORT, () => console.log(`port running for user service at ${PORT}`));
+app.listen(PORT || 3000, () => console.log(`port running for user service at ${PORT}`));

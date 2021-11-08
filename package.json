@@ -1,0 +1,73 @@
+{
+  "name": "uni_project_template",
+  "version": "1.0.0",
+  "description": "uni_project template",
+  "main": "app.ts",
+  "scripts": {
+    "test": "nyc --reporter=html   mocha -r ts-node/register  './test/**/*.ts'",
+    "dev": "nodemon  -r dotenv/config app.ts",
+    "migrate": "sequelize-cli db:migrate",
+    "undo-migrate": "sequelize-cli db:migrate:undo",
+    "seed-generate": "sequelize-cli seed:generate",
+    "seed": "sequelize-cli db:seed:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chzdo/uni_project.git"
+  },
+  "author": "Stanley Nduaguibe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chzdo/uni_project/issues"
+  },
+  "homepage": "https://github.com/chzdo/uni_projecte#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/chai-like": "^1.1.1",
+    "@types/chai-things": "^0.0.35",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
+    "@types/mocha": "^9.0.0",
+    "@types/mysql": "^2.15.19",
+    "@types/node": "^16.7.13",
+    "@types/proxyquire": "^1.3.28",
+    "@types/sequelize": "^4.28.10",
+    "@types/sinon": "^10.0.2",
+    "@types/validator": "^13.6.3",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "chai": "^4.3.4",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "mocha": "^9.1.1",
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.2",
+    "proxyquire": "^2.1.3",
+    "sequelize-cli": "^6.2.0",
+    "sinon": "^11.1.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "@types/helmet": "^4.0.0",
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "joi": "^17.4.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5",
+    "ts-loader": "^9.2.5",
+    "winston": "^3.3.3"
+  }
+}

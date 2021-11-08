@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "starwars",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "define": {
+      "freezeTableNames": true
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "stars",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "starwars",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

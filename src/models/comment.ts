@@ -42,8 +42,8 @@ export function createModel(sequelize: Sequelize.Sequelize): Sequelize.ModelCtor
  });
  testModels
   .sync({ alter: true })
-  .then((e) => logger.info("[Test Model Sync] Complete"))
-  .catch((e) => logger.error("[Test Model Sync] " + e.message));
+  .then((e) => console.log("[Test Model Sync] Complete"))
+  .catch((e) => console.log("[Test Model Sync] " + e.message));
 
  return testModels;
 }

@@ -3,8 +3,8 @@ import { errResponseObjectType } from "../../types/index";
 
 function checkServer(req: Request, res: Response, next: NextFunction): void {
  if (!globalThis.movies) {
-  res.status(200).json({
-   statusCode: 200,
+  res.status(503).json({
+   statusCode: 503,
    message: "Service loading try again",
   });
   return;

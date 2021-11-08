@@ -47,14 +47,3 @@ export function createModel(sequelize: Sequelize.Sequelize): Sequelize.ModelCtor
 
  return testModels;
 }
-
-/**
-const TestModel: = 
-
-TestModel.sync({ alter: true })
- .then((e) => logger.info("[Test Model Sync] Complete"))
- .catch((e) => logger.error("[Test Model Sync] " + e.message));
-console.log("i got to the model");
-export { TestModel };
-
-**/

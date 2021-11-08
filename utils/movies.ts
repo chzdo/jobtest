@@ -5,11 +5,9 @@ const { STAR_URL } = process.env;
 
 async function getMovies() {
  try {
-  console.log("hey", STAR_URL);
   const { data } = await axios.get(STAR_URL);
-  console.log("data", data);
+
   if (data) {
-   console.log("server ready for request");
    const moviesList = [];
    for (const results of data.results) {
     const { title, opening_crawl, episode_id, release_date, characters } = results;
@@ -18,7 +16,6 @@ async function getMovies() {
      try {
       const { name, gender, height, mass, hair_colour } = (await axios.get(character)).data;
       characterInfo.push({ name, gender, height, mass, hair_colour });
-      console.log(characterInfo);
      } catch (e) {
       logger.error(e);
      }
@@ -42,7 +39,6 @@ async function getMovies() {
    globalThis.movies = movies;
   }
 
-  console.log("server ready for request", globalThis.movies);
   logger.info("server ready for request");
  } catch (e) {
   logger.error(e);

@@ -17,6 +17,6 @@ app.use(helmet());
 app.use(express.json());
 app.use(useMorgan);
 
-app.use("/", router);
+//app.use("/", router);
 
 app.listen(PORT, () => console.log(`port running for user service at ${PORT}`));

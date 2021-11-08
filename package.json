@@ -2,7 +2,7 @@
   "name": "uni_project_template",
   "version": "1.0.0",
   "description": "uni_project template",
-  "main": "build/server.js",
+  "main": "build/app.js",
   "scripts": {
     "tsc": "tsc",
     "postinstall": "yarn tsc",
@@ -15,6 +15,9 @@
     "seed-generate": "sequelize-cli seed:generate",
     "seed": "sequelize-cli db:seed:all"
   },
+  "engines": {
+    "node": "12.16.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chzdo/uni_project.git"
@@ -25,7 +28,8 @@
     "url": "https://github.com/chzdo/uni_project/issues"
   },
   "homepage": "https://github.com/chzdo/uni_projecte#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "@types/chai": "^4.2.21",
     "@types/chai-like": "^1.1.1",
     "@types/chai-things": "^0.0.35",
@@ -57,9 +61,7 @@
     "sequelize-cli": "^6.2.0",
     "sinon": "^11.1.2",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.2"
-  },
-  "dependencies": {
+    "typescript": "^4.4.2",
     "@types/helmet": "^4.0.0",
     "axios": "^0.24.0",
     "cors": "^2.8.5",

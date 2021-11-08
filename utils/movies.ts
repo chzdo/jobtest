@@ -5,8 +5,9 @@ const { STAR_URL } = process.env;
 
 async function getMovies() {
  try {
+  console.log(STAR_URL);
   const { data } = await axios.get(STAR_URL);
-
+  console.log(data);
   if (data) {
    console.log("server ready for request");
    const moviesList = [];

@@ -6,7 +6,6 @@
   "scripts": {
     "tsc": "tsc",
     "postinstall": "yarn tsc",
-    "build": "node build/app.js",
     "start": "node build/app.js",
     "test": "nyc --reporter=html   mocha -r ts-node/register  './test/**/*.ts'",
     "dev": "nodemon  -r dotenv/config app.ts",
@@ -25,8 +24,7 @@
     "url": "https://github.com/chzdo/uni_project/issues"
   },
   "homepage": "https://github.com/chzdo/uni_projecte#readme",
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "@types/chai": "^4.2.21",
     "@types/chai-like": "^1.1.1",
     "@types/chai-things": "^0.0.35",
@@ -59,7 +57,9 @@
     "sinon": "^11.1.2",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2",
-    "@types/helmet": "^4.0.0",
+    "@types/helmet": "^4.0.0"
+  },
+  "dependencies": {
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

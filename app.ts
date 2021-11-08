@@ -2,7 +2,7 @@ import express from "express";
 
 import cors from "cors";
 import helmet from "helmet";
-//import "./src/databaseEngine/index";
+import "./src/databaseEngine/index";
 import "./utils/movies";
 import { useMorgan } from "./utils/morgan";
 import { router } from "./src/routes/index";

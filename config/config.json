@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "starwars",
-    "host": "127.0.0.1",
+    "username": "bdf3769c5ca49d",
+    "password": "f1337b76",
+    "database": "heroku_c2f897e2cdf067d",
+    "host": "us-cdbr-east-04.cleardb.com",
     "dialect": "mysql",
     "define": {
       "freezeTableNames": true
@@ -18,6 +18,10 @@
   },
   "production": {
     "use_env_variable": "CLEARDB_DATABASE_URL",
+    "username": "bdf3769c5ca49d",
+    "password": "f1337b76",
+    "database": "heroku_c2f897e2cdf067d",
+    "host": "us-cdbr-east-04.cleardb.com",
     "dialect": "mysql",
     "define": {
       "freezeTableNames": true

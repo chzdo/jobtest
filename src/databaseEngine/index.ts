@@ -14,11 +14,14 @@ const config = require(__dirname + "/../../config/config.json")[env];
 globalThis.db = {};
 
 let sequelize;
+
 let dbConnection;
+
 if (config.use_env_variable) {
  sequelize = new sequelizing(process.env[config.use_env_variable], config);
 } else {
  sequelize = new sequelizing(config.database, config.username, config.password, config);
+
  dbConnection = mysql.createConnection({
   host: config.host,
   user: config.username,

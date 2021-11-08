@@ -15,13 +15,20 @@ async function getMovies() {
     const characterInfo = [];
     for (const character of characters) {
      try {
-      characterInfo.push((await axios.get(character)).data);
+      const { name, gender, height, mass, hair_colour } = (await axios.get(character)).data;
+      characterInfo.push({ name, gender, height, mass, hair_colour });
      } catch (e) {
       logger.error(e);
      }
     }
 
-    moviesList.push({ title, opening_crawl, episode_id, release_date, characters: characterInfo });
+    moviesList.push({
+     title,
+     opening_crawl,
+     episode_id,
+     release_date,
+     characters: characterInfo,
+    });
    }
 
    const movies = {

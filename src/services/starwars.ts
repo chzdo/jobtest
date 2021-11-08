@@ -25,7 +25,7 @@ async function getCharacters(req: Request): Promise<errResponseObjectType | succ
   const movie = movies.find((value) => value.episode_id == movieId);
 
   if (!movie) {
-   return processFailedResponse(422, "Movie No Found", service);
+   return processFailedResponse(404, "Movie No Found", service);
   }
 
   let { characters } = movie;
@@ -57,13 +57,16 @@ async function getCharacters(req: Request): Promise<errResponseObjectType | succ
   }
 
   const noOfCharacters = characters.length;
-  const feet = parseFloat(noOfCharacters) / 30.48;
-  const inch = feet * 12;
+  const totalHeightinCm = characters.reduce((prev, cur) => {
+   const s = parseFloat(cur.height);
+   return !isNaN(s) ? prev + s : prev;
+  }, 0);
+  const totalHeightinFeet = converttoFeet(totalHeightinCm);
 
   const metaData = {
    noOfCharacters,
-   totalHeightinCm: characters.reduce((prev, cur) => parseInt(prev) + parseInt(cur.height), 0),
-   totalHeightinFeet: `${feet}ft ${inch}in`,
+   totalHeightinCm,
+   totalHeightinFeet,
   };
 
   const payload = { metaData, characters };
@@ -148,6 +151,16 @@ async function getMovies(req: Request): Promise<errResponseObjectType | successR
  } catch (e: unknown) {
   return processError(e, service);
  }
+}
+
+function converttoFeet(cm) {
+ const inch = parseFloat(cm) / 2.54;
+
+ const feet = inch / 12;
+
+ const finalInch = inch - 4 * 12;
+
+ return `${feet.toFixed(2)}ft ${finalInch.toFixed(2)}In`;
 }
 
 export { getMovies, addComment, getCharacters };

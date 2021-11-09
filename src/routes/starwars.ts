@@ -1,8 +1,10 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import { getMovies, addComment, getCharacters, getMoviesbyId } from "../services/starwars";
+import { checkServer } from "../middlewares/routeHandler";
 const routerStarwars = express.Router();
 
+routerStarwars.use(checkServer);
 routerStarwars.post("/comment", async function (req: Request, res: Response, next: NextFunction) {
  const result = await addComment(req);
  next(result);

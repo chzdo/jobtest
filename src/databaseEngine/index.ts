@@ -17,18 +17,26 @@ let sequelize;
 
 let dbConnection;
 
-if (config.use_env_variable) {
- sequelize = new sequelizing(process.env[config.use_env_variable], config);
-} else {
- sequelize = new sequelizing(config.database, config.username, config.password, config);
+const { db_username, db_host, db_password, db_database } = process.env;
 
- dbConnection = mysql.createConnection({
-  host: config.host,
-  user: config.username,
-  password: config.password,
+if (config.use_env_variable) {
+ sequelize = new sequelizing(process.env[config.use_env_variable], {
+  ...config,
+  ...{ db_username, db_host, db_password, db_database },
+ });
+} else {
+ sequelize = new sequelizing(db_database, db_username, db_password, {
+  ...config,
+  ...{ username: db_username, host: db_host, password: db_password, database: db_database },
  });
 
- dbConnection.query("CREATE DATABASE IF NOT EXISTS " + config.database + ";");
+ dbConnection = mysql.createConnection({
+  host: db_host,
+  user: db_username,
+  password: db_password,
+ });
+
+ dbConnection.query("CREATE DATABASE IF NOT EXISTS " + db_database + ";");
 }
 
 fs

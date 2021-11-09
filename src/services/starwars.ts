@@ -23,7 +23,6 @@ async function getCharacters(req: Request): Promise<errResponseObjectType | succ
   }
 
   const movie = movies.find((value) => value.episode_id == movieId);
-
   if (!movie) {
    return processFailedResponse(404, "Movie No Found", service);
   }
@@ -61,7 +60,7 @@ async function getCharacters(req: Request): Promise<errResponseObjectType | succ
    const s = parseFloat(cur.height);
    return !isNaN(s) ? prev + s : prev;
   }, 0);
-  const totalHeightinFeet = converttoFeet(totalHeightinCm);
+  const totalHeightinFeet = convertToFeet(totalHeightinCm);
 
   const metaData = {
    noOfCharacters,
@@ -88,7 +87,7 @@ async function addComment(req: Request): Promise<errResponseObjectType | success
   }
 
   if (ids.findIndex((value) => value == episode_id) == -1) {
-   return processFailedResponse(422, "Invalid Movie ID", service);
+   return processFailedResponse(404, "Invalid Movie ID", service);
   }
   if (!comment) {
    return processFailedResponse(422, "Comment Required", service);
@@ -163,6 +162,8 @@ async function getMoviesbyId(req: Request): Promise<errResponseObjectType | succ
 
   if (!movie) return processFailedResponse(404, "Movie not found", service);
 
+  const { characters, ...rest } = movie;
+
   const commentList = await findAll(
    {
     query: {
@@ -174,23 +175,23 @@ async function getMoviesbyId(req: Request): Promise<errResponseObjectType | succ
    comments
   );
 
-  movie["noOfComments"] = commentList.length;
-  movie["comment"] = commentList;
+  rest["noOfComments"] = commentList.length;
+  rest["comment"] = commentList;
 
-  return processResponse(200, movie);
+  return processResponse(200, rest);
  } catch (e: unknown) {
   return processError(e, service);
  }
 }
 
-function converttoFeet(cm) {
- const inch = parseFloat(cm) / 2.54;
+function convertToFeet(cm) {
+ const inch = parseFloat(cm) * 0.3937;
 
  const feet = inch / 12;
 
- const finalInch = inch - 4 * 12;
+ const finalInch = inch % 12;
 
- return `${feet.toFixed(2)}ft ${finalInch.toFixed(2)}In`;
+ return `${feet.toFixed(1)}ft ${finalInch.toFixed(2)}In`;
 }
 
 export { getMovies, addComment, getCharacters, getMoviesbyId };

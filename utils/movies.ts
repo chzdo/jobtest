@@ -1,5 +1,4 @@
 import axios from "axios";
-import { isDataView } from "util/types";
 import { logger } from "./winston";
 import cron from "node-cron";
 
@@ -14,10 +13,11 @@ async function getMovies(): Promise<void> {
    let movies = [];
    const lists = data.results;
    const ids = [];
+
    for (const list of lists) {
     const { title, opening_crawl, episode_id, release_date, characters } = list;
     let newCharacters = [];
-    ids.push(episode_id);
+
     for (const character of characters) {
      const { name, gender, height, mass, hair_colour, eye_colour } = (await axios.get(character)).data;
      newCharacters = [...newCharacters, { name, gender, height, mass, hair_colour, eye_colour }];
@@ -39,3 +39,7 @@ async function getMovies(): Promise<void> {
 }
 
 cron.schedule("* * * * *", () => getMovies());
+
+cron.schedule("30 * * * *", () => {
+ axios.get("https://starswarapp.herokuapp.com").then((data) => logger.info(data));
+});

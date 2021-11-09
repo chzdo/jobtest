@@ -17,6 +17,9 @@ describe("test for route handlers", function () {
   const req = {};
   let responseObject = {};
   const res: Partial<Response> = {
+   set: (field: string, value?: string | string[]): Response<any, Record<any, any>> => {
+    return res as Response;
+   },
    status: sinon.stub().callsFake((code) => {
     this.code = code;
     return {

@@ -12,12 +12,12 @@ async function getMovies(): Promise<void> {
   if (data) {
    let movies = [];
    const lists = data.results;
-   const ids = [];
+   let ids = [];
 
    for (const list of lists) {
     const { title, opening_crawl, episode_id, release_date, characters } = list;
     let newCharacters = [];
-
+    ids = [...ids, episode_id];
     for (const character of characters) {
      const { name, gender, height, mass, hair_colour, eye_colour } = (await axios.get(character)).data;
      newCharacters = [...newCharacters, { name, gender, height, mass, hair_colour, eye_colour }];

@@ -1,42 +1,35 @@
 import axios from "axios";
+import { isDataView } from "util/types";
 import { logger } from "./winston";
+import cron from "node-cron";
 
 const { STAR_URL } = process.env;
 
-async function getMovies() {
+async function getMovies(): Promise<void> {
  try {
+  logger.debug("running cron job");
   const { data } = await axios.get(STAR_URL);
 
   if (data) {
-   const moviesList = [];
-   for (const results of data.results) {
-    const { title, opening_crawl, episode_id, release_date, characters } = results;
-    const characterInfo = [];
+   let movies = [];
+   const lists = data.results;
+   const ids = [];
+   for (const list of lists) {
+    const { title, opening_crawl, episode_id, release_date, characters } = list;
+    let newCharacters = [];
+    ids.push(episode_id);
     for (const character of characters) {
-     try {
-      const { name, gender, height, mass, hair_colour } = (await axios.get(character)).data;
-      characterInfo.push({ name, gender, height, mass, hair_colour });
-     } catch (e) {
-      logger.error(e);
-     }
+     const { name, gender, height, mass, hair_colour, eye_colour } = (await axios.get(character)).data;
+     newCharacters = [...newCharacters, { name, gender, height, mass, hair_colour, eye_colour }];
     }
-
-    moviesList.push({
-     title,
-     opening_crawl,
-     episode_id,
-     release_date,
-     characters: characterInfo,
-    });
+    movies = [...movies, { title, opening_crawl, episode_id, release_date, characters: newCharacters }];
    }
 
-   const movies = {
-    ids: moviesList.map((value) => value.episode_id),
-    movies: moviesList,
-    unfilteredMovies: data.results,
+   globalThis.movies = {
+    ids,
+    movies,
     count: data.count,
    };
-   globalThis.movies = movies;
   }
 
   logger.info("server ready for request");
@@ -45,6 +38,4 @@ async function getMovies() {
  }
 }
 
-getMovies();
-
-export { getMovies };
+cron.schedule("* * * * *", () => getMovies());

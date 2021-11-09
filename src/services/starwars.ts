@@ -79,17 +79,15 @@ async function getCharacters(req: Request): Promise<errResponseObjectType | succ
 
 async function addComment(req: Request): Promise<errResponseObjectType | successResponseObjectType> {
  try {
-  const { comment } = req.body;
-
-  const { movieId } = req.params;
+  const { comment, episode_id } = req.body;
 
   const { ids } = globalThis.movies;
 
-  if (!movieId) {
+  if (!episode_id) {
    return processFailedResponse(422, "Movie ID Required", service);
   }
 
-  if (ids.findIndex((value) => value == movieId) == -1) {
+  if (ids.findIndex((value) => value == episode_id) == -1) {
    return processFailedResponse(422, "Invalid Movie ID", service);
   }
   if (!comment) {
@@ -105,7 +103,7 @@ async function addComment(req: Request): Promise<errResponseObjectType | success
 
   const response = await create(
    {
-    movieId,
+    movieId: episode_id,
     comment,
     ip,
    },
@@ -153,6 +151,38 @@ async function getMovies(req: Request): Promise<errResponseObjectType | successR
  }
 }
 
+async function getMoviesbyId(req: Request): Promise<errResponseObjectType | successResponseObjectType> {
+ try {
+  const { movieId } = req.params;
+
+  if (!movieId) {
+   return processFailedResponse(422, "Movied ID Required", service);
+  }
+  const { movies } = globalThis.movies;
+  const movie = movies.find((value) => value.episode_id == movieId);
+
+  if (!movie) return processFailedResponse(404, "Movie not found", service);
+
+  const commentList = await findAll(
+   {
+    query: {
+     movieId,
+     sort: "createdAt:DESC",
+     project: "createdAt,id,comment,ip,movieId",
+    },
+   },
+   comments
+  );
+
+  movie["noOfComments"] = commentList.length;
+  movie["comment"] = commentList;
+
+  return processResponse(200, movie);
+ } catch (e: unknown) {
+  return processError(e, service);
+ }
+}
+
 function converttoFeet(cm) {
  const inch = parseFloat(cm) / 2.54;
 
@@ -163,4 +193,4 @@ function converttoFeet(cm) {
  return `${feet.toFixed(2)}ft ${finalInch.toFixed(2)}In`;
 }
 
-export { getMovies, addComment, getCharacters };
+export { getMovies, addComment, getCharacters, getMoviesbyId };
